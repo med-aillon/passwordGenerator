@@ -127,5 +127,6 @@ body {
 
 .error-msg {
   text-align: center;
+  margin-top: 20px;
   color: #fff;
 }
