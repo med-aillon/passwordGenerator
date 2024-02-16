@@ -60,6 +60,31 @@ body {
   width: 50%;
 }
 
+.copy-btn::before {
+  content: "copié ✅";
+  font-size: 16px;
+  padding: 6px;
+  white-space: nowrap;
+  display: block;
+  position: absolute;
+  top: -80%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 5px;
+  background: #fff;
+  display: none;
+}
+
+.copy-btn.active::before {
+  display: block;
+  animation: toast 1s ease-out;
+}
+@keyframes toast {
+  to {
+    transform: translateX(-50%) translateY(-2px);
+  }
+}
+
 .range-group {
   margin-top: 30px;
 }

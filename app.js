@@ -19,11 +19,16 @@ const charactersSet = {
   symbols: addASet(33, 47) + addASet(58, 64) + addASet(91, 96) + addASet(123, 126),
 };
 
+const range = document.querySelector("input[type=range]");
+const rangeLabel = document.querySelector(".range-group label");
+
+rangeLabel.textContent = `Taille du mot de passe : ${range.value}`;
+let passwordLength = range.value;
+
 const passwordContent = document.querySelector(".password-content");
 const errorMsg = document.querySelector(".error-msg");
 const generateBtn = document.querySelector(".generate-btn");
 const checkboxes = document.querySelectorAll("input[type=checkbox]");
-passwordLength = 10;
 
 generateBtn.addEventListener("click", createPassword);
 
@@ -60,6 +65,7 @@ function createPassword() {
     password = password.slice(0, randomIndex) + passwordBase[index] + password.slice(randomIndex);
     console.log(randomIndex);
   });
+  passwordContent.textContent = password;
   console.log(passwordBase);
   console.log(password);
 }
@@ -71,4 +77,24 @@ function checkedSets() {
   checkboxes.forEach((checkbox) => checkbox.checked && checkedSets.push(charactersSet[checkbox.id]));
   return checkedSets;
 }
-console.log(checkedSets());
+range.addEventListener("input", handleRange);
+
+function handleRange(e) {
+  passwordLength = e.target.value;
+  rangeLabel.textContent = `Taille du mot de passe : ${passwordLength}`;
+}
+
+const copyBtn = document.querySelector(".copy-btn");
+copyBtn.addEventListener("click", copyPassword);
+
+let lock = false;
+function copyPassword() {
+  if (lock) return;
+  lock = true;
+  navigator.clipboard.writeText(passwordContent.textContent);
+  copyBtn.classList.add("active");
+  setTimeout(() => {
+    copyBtn.classList.remove("active");
+    lock = false;
+  }, 1000);
+}
