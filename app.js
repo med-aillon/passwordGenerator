@@ -89,12 +89,16 @@ copyBtn.addEventListener("click", copyPassword);
 
 let lock = false;
 function copyPassword() {
-  if (lock) return;
-  lock = true;
-  navigator.clipboard.writeText(passwordContent.textContent);
-  copyBtn.classList.add("active");
-  setTimeout(() => {
-    copyBtn.classList.remove("active");
-    lock = false;
-  }, 1000);
+  if (!passwordContent.textContent) {
+    errorMsg.textContent = "Veuillez générer un mot de passe puis copié-le !";
+  } else {
+    if (lock) return;
+    lock = true;
+    navigator.clipboard.writeText(passwordContent.textContent);
+    copyBtn.classList.add("active");
+    setTimeout(() => {
+      copyBtn.classList.remove("active");
+      lock = false;
+    }, 1000);
+  }
 }
